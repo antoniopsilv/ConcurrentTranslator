@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.widget.ArrayAdapter
+import androidx.activity.viewModels
 import br.edu.ifsp.scl.sdm.currencyconverter.R
 import br.edu.ifsp.scl.sdm.currencyconverter.databinding.ActivityMainBinding
 import br.edu.ifsp.scl.sdm.currencyconverter.model.livedata.CurrencyConverterLiveData
 import br.edu.ifsp.scl.sdm.currencyconverter.service.ConvertService
 import br.edu.ifsp.scl.sdm.currencyconverter.service.CurrienciesService
+import br.edu.ifsp.scl.sdm.currencyconverter.ui.viewModel.CurrencyConverterViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,21 +21,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val concurrencyServiceIntent by lazy {
-        Intent(this, CurrienciesService::class.java)
-    }
-    private var convertService: ConvertService? = null
-    private val convertServiceConnection = object : ServiceConnection {
-
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            convertService = (service as ConvertService.ConvertServiceBinder).getService()
-        }
-        override fun onServiceDisconnected(name: ComponentName?) {
-            // N/A
-        }
-    }
-
-
+    private val ccvm: CurrencyConverterViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
@@ -57,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             convertBt.setOnClickListener{
-                convertService?.convert(fromQuote, toQuote, amountTiet.text.toString())
+                ccvm.convert(fromQuote, toQuote, amountTiet.text.toString())
             }
         }
         CurrencyConverterLiveData.currenciesLiveData.observe(this) {currencyList ->
@@ -81,22 +69,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        startService(concurrencyServiceIntent)
+        ccvm.getCurricies()
     }
 
-    override fun onStart() {
-        super.onStart()
-        Intent(this@MainActivity, ConvertService::class.java).also {intent ->
-               bindService(intent, convertServiceConnection, BIND_AUTO_CREATE)
-        }
-    }
-    override fun onStop() {
-        super.onStop()
-        unbindService(convertServiceConnection)
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        stopService(concurrencyServiceIntent)
-    }
 }

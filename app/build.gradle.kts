@@ -53,4 +53,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
+    // Activity KTX
+    implementation("androidx.activity:activity-ktx:1.9.0")
+
 }
