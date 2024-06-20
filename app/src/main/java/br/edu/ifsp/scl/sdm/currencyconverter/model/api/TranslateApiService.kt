@@ -3,6 +3,7 @@ package br.edu.ifsp.scl.sdm.currencyconverter.model.api
 import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.ConversionResult
 import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.CurrencyList
 import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.LanguageList
+import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.TranslateResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -21,11 +22,11 @@ interface TranslateApiService {
         "x-rapidapi-host: google-translator9.p.rapidapi.com",
         "x-rapidapi-key: ceca8c7820mshc0919944ac028f2p1451edjsn36a0a403afb5"
     )
-    @POST("convert")
+    @POST("translate")
     fun convert(
         @Query("q") text: String,
         @Query("source") source: String,
         @Query("target") target: String,
         @Query("format") format: String,
-    ): Call<ConversionResult>
+    ): Call<TranslateResult>
 }
