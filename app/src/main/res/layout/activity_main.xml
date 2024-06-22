@@ -18,7 +18,7 @@
         app:titleTextColor="@color/design_default_color_on_primary" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fromQuoteTil"
+        android:id="@+id/fromLanguageTil"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/mainTb">
 
         <AutoCompleteTextView
-            android:id="@+id/fromQuoteMactv"
+            android:id="@+id/fromLanguageMactv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
@@ -37,17 +37,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/toQuoteTil"
+        android:id="@+id/toLanguageTil"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/to"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fromQuoteTil">
+        app:layout_constraintTop_toBottomOf="@id/fromLanguageTil">
 
         <AutoCompleteTextView
-            android:id="@+id/toQuoteMactv"
+            android:id="@+id/toLanguageMactv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
@@ -62,7 +62,7 @@
         android:hint="@string/amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toQuoteTil">
+        app:layout_constraintTop_toBottomOf="@id/toLanguageTil">
 
         <EditText
             android:id="@+id/amountTiet"

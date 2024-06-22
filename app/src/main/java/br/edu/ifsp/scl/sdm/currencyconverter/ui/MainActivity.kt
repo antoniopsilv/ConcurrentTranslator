@@ -38,60 +38,39 @@ class MainActivity : AppCompatActivity() {
         setContentView(amb.root)
         setSupportActionBar(amb.mainTb.apply { title = getString(R.string.app_name) })
 
-//        var fromLanguage = ""
-//        var toLanguage = ""
-          var fromQuote = ""
-          var toQuote = ""
+        var fromLanguage = ""
+        var toLanguage = ""
           var languageAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf<String>())
           with(amb) {
-              fromQuoteMactv.apply {
+              fromLanguageMactv.apply {
                   setAdapter(languageAdapter)
                   setOnItemClickListener { _, _, _, _ ->
-                      fromQuote = text.toString()
+                      fromLanguage = text.toString()
                   }
               }
-              toQuoteMactv.apply {
+              toLanguageMactv.apply {
                   setAdapter(languageAdapter)
                   setOnItemClickListener { _, _, _, _ ->
-                      toQuote = text.toString()
+                      toLanguage = text.toString()
                   }
               }
               convertBt.setOnClickListener {
 //                  ccvm.convert(fromQuote, toQuote, amountTiet.text.toString())
               }
           }
-//*************************************************************************************
-//        val languageAdapter =
-//            ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf<String>())
-//
-//        with(amb) {
-//            fromLanguageMactv.apply {
-//                setAdapter(languageAdapter)
-//                setOnItemClickListener { _, _, _, _ ->
-//                    fromLanguage = text.toString()
-//                }
-//            }
-//            toLanguageMactv.apply {
-//                setAdapter(languageAdapter)
-//                setOnItemClickListener { _, _, _, _ ->
-//                    toLanguage = text.toString()
-//                }
-//            }
-
-//*************************************************************************************
 
         TranslateLiveData.languageListLiveData.observe(this) { languageList ->
             languageAdapter.clear()
             languageAdapter.addAll(languageList.map { it.language })
-            Log.i("Lista que está retornando",  "******* ???? **** ${languageList.map { it.name } }")
+            Log.i("\n\n\n Lista que está retornando",  "******* >>>> ${languageList.map { it.language } }")
                 languageAdapter.getItem(0)?.also { language ->
-                amb.fromQuoteMactv.setText(language, false)
-                fromQuote = language
+                amb.fromLanguageMactv.setText(language, false)
+                fromLanguage = language
             }
 
             languageAdapter.getItem(languageAdapter.count - 1)?.also { language ->
-                amb.toQuoteMactv.setText(language, false)
-                toQuote = language
+                amb.toLanguageMactv.setText(language, false)
+                toLanguage = language
             }
         }
         startService(languageServiceServiceIntent)

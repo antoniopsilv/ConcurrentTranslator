@@ -17,14 +17,13 @@ interface TranslateApiService {
     fun getLanguages(): Call<LanguageList>
 
     @Headers(
-        "x-rapidapi-host: google-translator9.p.rapidapi.com",
+        "x-rapidapi-host: aibit-translator.p.rapidapi.com",
         "x-rapidapi-key: ceca8c7820mshc0919944ac028f2p1451edjsn36a0a403afb5"
     )
-    @POST
-    fun convert(
-        @Query("q") text: String,
-        @Query("source") source: String,
-        @Query("target") target: String,
-        @Query("format") format: String,
+    @POST("text")
+    fun translate(
+        @Query("from") from: String,
+        @Query("to") to: String,
+        @Query("text") text: String
     ): Call<TranslateResult>
 }
