@@ -3,16 +3,13 @@ package br.edu.ifsp.scl.sdm.currencyconverter.service
 import android.app.Service
 import android.content.Intent
 import android.os.Handler
+import android.os.HandlerThread
 import android.os.IBinder
 import android.os.Looper
 import android.os.Message
 import android.util.Log
-import br.edu.ifsp.scl.sdm.currencyconverter.model.api.CurrencyConverterApiClient
 import br.edu.ifsp.scl.sdm.currencyconverter.model.api.TranslateApiClient
-import br.edu.ifsp.scl.sdm.currencyconverter.model.api.TranslateApiService
-import br.edu.ifsp.scl.sdm.currencyconverter.model.livedata.CurrencyConverterLiveData
 import br.edu.ifsp.scl.sdm.currencyconverter.model.livedata.TranslateLiveData
-import br.edu.ifsp.scl.sdm.currencyconverter.model.livedata.TranslateLiveData.languageListLiveData
 import java.net.HttpURLConnection
 
 class LanguageService: Service() {
@@ -31,6 +28,25 @@ class LanguageService: Service() {
             }
             stopSelf(msg.arg1)
         }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        HandlerThread(this.javaClass.name).apply {
+            start()
+            handler = LanguageServiceHandler(looper)
+        }
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        serviceLogTag = "${javaClass.simpleName}/${startId}"
+        Log.v(serviceLogTag, "Service Started")
+
+        handler.obtainMessage().also { msg ->
+            msg.arg1 = startId
+            handler.sendMessage(msg)
+        }
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? = null

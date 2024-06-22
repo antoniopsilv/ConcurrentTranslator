@@ -1,5 +1,8 @@
 package br.edu.ifsp.scl.sdm.currencyconverter.model.domain
 
-data class LanguageList(
-    val `languages`: Map<String,String>
-)
+class LanguageList : ArrayList<LanguageList.LanguageListItem>(){
+    data class LanguageListItem(
+        val language: String,
+        val name: String
+    )
+}
