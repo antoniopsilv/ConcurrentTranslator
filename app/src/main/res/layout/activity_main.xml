@@ -56,19 +56,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/amountTil"
+        android:id="@+id/textTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/amount"
+        android:hint="@string/text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toLanguageTil">
 
         <EditText
-            android:id="@+id/amountTiet"
+            android:id="@+id/textTiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="text"
             android:importantForAutofill="no"
             tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +80,7 @@
         android:hint="@string/result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amountTil">
+        app:layout_constraintTop_toBottomOf="@id/textTil">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/resultTiet"
@@ -94,7 +94,7 @@
         android:id="@+id/convertBt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/convert"
+        android:text="@string/translation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resultTil" />

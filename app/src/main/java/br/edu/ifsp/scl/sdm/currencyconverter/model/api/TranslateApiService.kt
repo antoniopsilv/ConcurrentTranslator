@@ -1,20 +1,21 @@
 package br.edu.ifsp.scl.sdm.currencyconverter.model.api
 
-import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.LanguageList
+import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.LanguegeList
 import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.TranslateResult
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface TranslateApiService {
+    @GET("languages")
+
     @Headers(
         "x-rapidapi-host: aibit-translator.p.rapidapi.com",
         "x-rapidapi-key: ceca8c7820mshc0919944ac028f2p1451edjsn36a0a403afb5"
     )
-    @GET("support-languages")
-    fun getLanguages(): Call<LanguageList>
+    fun getLanguages(): Call<LanguegeList>
 
     @Headers(
         "x-rapidapi-host: aibit-translator.p.rapidapi.com",
@@ -22,8 +23,8 @@ interface TranslateApiService {
     )
     @POST("text")
     fun translate(
-        @Query("from") from: String,
-        @Query("to") to: String,
-        @Query("text") text: String
+        @Body from: String,
+        @Body to: String,
+        @Body text: String
     ): Call<TranslateResult>
 }
