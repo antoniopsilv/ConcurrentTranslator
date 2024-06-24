@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(amb.root)
         setSupportActionBar(amb.mainTb.apply { title = getString(R.string.app_name) })
 
+        lvm.getLanguages()
+
         var fromLanguage = ""
         var toLanguage = ""
           var languageAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf<String>())
@@ -45,15 +47,18 @@ class MainActivity : AppCompatActivity() {
                   Log.i("\n\n\n Languagem To",  ">>>> ${toLanguage}")
                   Log.i("\n\n\n Text",  ">>>> ${textTiet.text.toString()}")
 
-                  lvm?.translate(fromLanguage, toLanguage, textTiet.text.toString())
+                  lvm?.translate("pt", "en", textTiet.text.toString())
+
               }
           }
 
         TranslateLiveData.languageListLiveData.observe(this) { languageList ->
             languageAdapter.clear()
-            languageAdapter.add(languageList.map { it.language }.toString())
+            languageAdapter.add(languageList.map { it.code }.toString())
 
-            Log.i("\n\n\n Lista que está retornando",  "******* >>>> ${languageAdapter.toString() }")
+            Log.i("\n\n\n Lista que está retornando",  "******* >>>> " +
+                    "$languageList.map { it.code }.toString()")
+
                 languageAdapter.getItem(0)?.also { language ->
                 amb.fromLanguageMactv.setText(language, false)
                 fromLanguage = language
@@ -68,11 +73,12 @@ class MainActivity : AppCompatActivity() {
         TranslateLiveData.translateResultLiveData.observe(this) { translationResult ->
             with(amb) {
                 translationResult.trans.also { result ->
+                    Log.i("\n\n\n Texto retornado",  "******* >>>> $result")
                     resultTiet.setText(result)
                 }
             }
         }
-            lvm.getLanguages()
+
     }
 
 }
