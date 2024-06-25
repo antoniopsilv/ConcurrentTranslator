@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import br.edu.ifsp.scl.sdm.currencyconverter.R
 import br.edu.ifsp.scl.sdm.currencyconverter.databinding.ActivityMainBinding
+import br.edu.ifsp.scl.sdm.currencyconverter.model.domain.LanguegeList
 import br.edu.ifsp.scl.sdm.currencyconverter.model.livedata.TranslateLiveData
 import br.edu.ifsp.scl.sdm.currencyconverter.ui.viewModel.TranslateViewModel
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         var fromLanguage = ""
         var toLanguage = ""
+
           var languageAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf<String>())
           with(amb) {
               fromLanguageMactv.apply {
@@ -53,22 +55,24 @@ class MainActivity : AppCompatActivity() {
           }
 
         TranslateLiveData.languageListLiveData.observe(this) { languageList ->
-            languageAdapter.clear()
-            languageAdapter.add(languageList.map { it.code }.toString())
+                languageAdapter.clear()
+                languageAdapter.add(languageList.forEach { language ->
+                    languageAdapter.add(language.language)
+                }.toString())
 
-            Log.i("\n\n\n Lista que está retornando",  "******* >>>> " +
-                    "$languageList.map { it.code }.toString()")
+
 
                 languageAdapter.getItem(0)?.also { language ->
-                amb.fromLanguageMactv.setText(language, false)
-                fromLanguage = language
-            }
+                    amb.fromLanguageMactv.setText(language, false)
+                    fromLanguage = language
+                }
 
-            languageAdapter.getItem(languageAdapter.count - 1)?.also { language ->
-                amb.toLanguageMactv.setText(language, false)
-                toLanguage = language
-            }
+                languageAdapter.getItem(languageAdapter.count - 1)?.also { language ->
+                    amb.toLanguageMactv.setText(language, false)
+                    toLanguage = language
+                }
         }
+
 
         TranslateLiveData.translateResultLiveData.observe(this) { translationResult ->
             with(amb) {
