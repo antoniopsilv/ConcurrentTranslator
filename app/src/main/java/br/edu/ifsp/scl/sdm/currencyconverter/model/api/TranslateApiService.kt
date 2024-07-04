@@ -9,6 +9,13 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+
+data class TranslateRequest(
+    val from: String,
+    val to: String,
+    val text: String
+)
+
 interface TranslateApiService {
     @GET("support-languages")
 
@@ -24,8 +31,6 @@ interface TranslateApiService {
     )
     @POST("text")
     fun translate(
-        @Query ("from") from: String,
-        @Query ("to") to: String,
-        @Body text: String
+        @Body request: TranslateRequest
     ): Call<TranslateResult>
 }
